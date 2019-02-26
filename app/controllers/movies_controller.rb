@@ -15,14 +15,16 @@ class MoviesController < ApplicationController
       session[:sort_by] = params[:sort_by]
     else
       flash.keep
-      redirect_to movies_path(session)
+      params[:sort_by] = session[:sort_by]
+      redirect_to movies_path(params) and return
     end
     @all_ratings = Movie.all_ratings
     if params.key?(:ratings)
       session[:ratings] = params[:ratings]
     else
       flash.keep
-      redirect_to movies_path(session)
+      params[:ratings] = session[:ratings]
+      redirect_to movies_path(params) and return
     end
     @checked = @all_ratings
     if session.key?(:ratings)
