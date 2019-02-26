@@ -11,7 +11,10 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    if params.key?(:sort_by)
+      session[:sort_by] = params[:sort_by]
+    end
+    @movies = Movie.order(session[:sort_by])
   end
 
   def new
